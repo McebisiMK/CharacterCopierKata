@@ -48,7 +48,7 @@ namespace CharacterCopierKata.Tests.UnitTests
         }
 
         [Test]
-        public void Copy_Given_Source_Returned_A_Character_Should_Copy_Until_New_Line_Is_Returned()
+        public void Copy_Given_Source_Returned_A_Character_Should_Copy_Destination_Until_New_Line_Is_Returned()
         {
             //-------------------------------Arrange---------------------------------------
             var source = Substitute.For<ISource>();
@@ -121,6 +121,24 @@ namespace CharacterCopierKata.Tests.UnitTests
             //-------------------------------Assert----------------------------------------
             source.Received(1).ReadChars(count);
             destination.Received(1).WriteChars(Arg.Do<char[]>(receivedCharacters => CharactersToCopy = receivedCharacters));
+        }
+
+        [Test]
+        public void CopyRange_Given_Source_Returned_Characters_Should_Copy_To_Destination_Until_New_LineLine_Is_Returned()
+        {
+            //-------------------------------Arrange---------------------------------------
+            var source = Substitute.For<ISource>();
+            var destination = Substitute.For<IDestination>();
+            var copier = CreateCopier(source, destination);
+
+            source.ReadChars(2).Returns(new char[] {'s','f'}, new char[] { 'r', 'y' }, new char[] { 'h', 'n' }, new char[] { '\n', 'f' });
+
+            //-------------------------------Act-------------------------------------------
+            copier.CopyRange(2);
+
+            //-------------------------------Assert----------------------------------------
+            source.Received(4).ReadChars(2);
+            destination.Received(3).WriteChars(Arg.Any<char[]>());
         }
 
         private static Copier CreateCopier(ISource source, IDestination destination)
