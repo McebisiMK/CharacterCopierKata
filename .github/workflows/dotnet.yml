@@ -20,8 +20,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      working-directory: ../CharacterCopierKata.Services
+      working-directory: */CharacterCopierKata.Services
       run: dotnet build --no-restore
     - name: Test
-      working-directory: ../CharacterCopierKata.Tests
+      working-directory: */CharacterCopierKata.Tests
       run: dotnet test --no-build --verbosity normal
