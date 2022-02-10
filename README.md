@@ -1,3 +1,5 @@
+[![.NET](https://github.com/McebisiMK/CharacterCopierKata/actions/workflows/dotnet.yml/badge.svg)](https://github.com/McebisiMK/CharacterCopierKata/actions/workflows/dotnet.yml)
+
 # CharacterCopierKata
 
 Write a character **copier class** that reads characters from a **source** and copies them to a

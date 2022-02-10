@@ -1,26 +1,30 @@
-name: .NET
+name: Continuous Integration and deployment
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
+
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
+
+    - name: Build application
       run: dotnet build --no-restore
-    - name: Test
-      working-directory: ./CharacterCopierKata.Tests
+
+    - name: Run automated tests
       run: dotnet test --no-build --verbosity normal
